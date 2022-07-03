@@ -1,3 +1,5 @@
+
+
 const employees = [
   {
     name: 'Atticus',
@@ -40,3 +42,45 @@ const employees = [
 // Ask questions when you don't.
 
 console.log( employees );
+
+
+
+
+/**
+ * calculates employee bonus
+ * 
+ * @param {object} employee
+ * @return {object} employee name, bonusPercentage, totalCompensation, totalBonus
+ */
+
+
+
+function bonus (employee){
+  let employeeBonus = {
+    name: (employee.name),
+    bonusPercentage: 0,
+    totalCopensation: 0,
+    totalBonus: 0,
+  }
+}
+
+
+
+function reviewBonus(employee){
+  let bonusPercentage = 0; ///note of runs out of function
+  if(employees.reviewRating <= 2){
+    console.log("no bonus");
+  } else if( employees.reviewRating === 3){
+    bonusPercentage += .04;
+  } else if( employees.reviewRating === 4 ){
+    bonusPercentage += .06
+  } else if ( employees.reviewRating === 5){
+    bonusPercentage += .10
+  }
+  return bonusPercentage;
+}
+
+console.log("test", reviewBonus(employees.Robert));
+
+
+
