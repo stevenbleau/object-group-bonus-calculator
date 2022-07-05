@@ -41,7 +41,7 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
-console.log( employees );
+console.table( employees );
 
 
 
@@ -53,34 +53,60 @@ console.log( employees );
  * @return {object} employee name, bonusPercentage, totalCompensation, totalBonus
  */
 
+function reviewBonus(employee){
 
-
-function bonus (employee){
+  // create new obect for employee bonus
   let employeeBonus = {
     name: (employee.name),
     bonusPercentage: 0,
-    totalCopensation: 0,
+    totalCompensation: 0,
     totalBonus: 0,
   }
-}
 
+  //create empty variable for bonus percentage
+  let bonusPercentage = 0;
+  //convert annual salary string to number
+  let salary = Number(employee.annualSalary);
 
-
-function reviewBonus(employee){
-  let bonusPercentage = 0; ///note of runs out of function
-  if(employees.reviewRating <= 2){
+  //employee rating bonus calculations
+  if(employee.reviewRating <= 2){
     console.log("no bonus");
-  } else if( employees.reviewRating === 3){
+  } else if( employee.reviewRating === 3){
     bonusPercentage += .04;
-  } else if( employees.reviewRating === 4 ){
+  } else if( employee.reviewRating === 4 ){
     bonusPercentage += .06
-  } else if ( employees.reviewRating === 5){
+  } else if ( employee.reviewRating === 5){
     bonusPercentage += .10
   }
-  return bonusPercentage;
+
+  console.log(employee.employeeNumber.length);
+
+  //employee number bonus calculations if rating is over 2
+  if (employee.employeeNumber.length === 4 && employee.reviewRating > 2){
+    bonusPercentage += .05;
+  }
+
+  //employee bonus correction if making 65k+
+  if (salary > 65000){
+    bonusPercentage -= .01;
+  }
+  //maximum bonus correction
+  if(bonusPercentage > .13){
+    bonusPercentage = .13;
+  }
+  //minimum bonus correction
+  if(bonusPercentage < 0){
+    bonusPercentage = 0;
+  }
+
+  employeeBonus.bonusPercentage = bonusPercentage;
+  employeeBonus.totalBonus = salary * bonusPercentage;
+  employeeBonus.totalCompensation = salary + employeeBonus.totalBonus;
+
+  return employeeBonus;
 }
 
-console.log("test", reviewBonus(employees.Robert));
-
-
-
+//call reviewBonus function for all employees
+for (let i = 0; i < employees.length; i++){
+  console.table(reviewBonus(employees[i]));
+}
